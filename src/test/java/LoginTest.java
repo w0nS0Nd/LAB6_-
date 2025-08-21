@@ -46,7 +46,15 @@ public class LoginTest {
 
         // 4. Перевірити повідомлення про успіх
         WebElement h1 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.tagName("h1")));
-        Assert.assertEquals(h1.getText().trim(), "Logged In Successfully");
+        String successMessage = h1.getText().trim();
+
+        if ("Logged In Successfully".equals(successMessage)) {
+            System.out.println("Успішний вхід: " + successMessage);
+        } else {
+            System.out.println("Вхід не виконано. Отримане повідомлення: " + successMessage);
+        }
+
+        Assert.assertEquals(successMessage, "Logged In Successfully");
 
         // 5. Перевірити, що кнопка "Log out" є
         WebElement logout = wait.until(ExpectedConditions.visibilityOfElementLocated(By.linkText("Log out")));

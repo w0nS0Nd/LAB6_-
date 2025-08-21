@@ -59,13 +59,21 @@ public class LoginDataDrivenTest {
             // 3) Перевіряємо очікування
             if ("success".equalsIgnoreCase(expected)) {
                 String h1 = wait.until(ExpectedConditions.presenceOfElementLocated(By.tagName("h1"))).getText();
+                if (h1.contains("Logged In Successfully")) {
+                    System.out.println("Успішний вхід для користувача: " + username);
+                } else {
+                    System.out.println("НЕУСПІШНИЙ вхід для користувача: " + username);
+                }
                 Assert.assertTrue(h1.contains("Logged In Successfully"),
                         "Очікували успішний вхід, але заголовок інший: " + h1);
             } else {
                 WebElement error = wait.until(ExpectedConditions.presenceOfElementLocated(By.id("error")));
+                if (error.isDisplayed()) {
+                    System.out.println("Очікувана помилка входу для користувача: " + username);
+                } else {
+                    System.out.println("ПОМИЛКА: для користувача " + username + " повідомлення про помилку відсутнє");
+                }
                 Assert.assertTrue(error.isDisplayed(), "Очікували повідомлення про помилку, але його нема");
-                // (опційно) можна також перевірити текст:
-                // Assert.assertTrue(error.getText().contains("invalid"), "Текст помилки не співпав");
             }
 
         } finally {
