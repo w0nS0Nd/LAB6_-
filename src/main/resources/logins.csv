@@ -1,0 +1,4 @@
+username,password,expected
+student,Password123,success
+student,wrong_pass,fail
+wrong_user,Password123,fail
